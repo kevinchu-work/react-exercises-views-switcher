@@ -1,41 +1,9 @@
+@import './styles/library/include';
+
 .App {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 60s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
 
 h1 {
   color: green;
@@ -43,48 +11,66 @@ h1 {
 
 .tabWrapper {
 
-  $BORDER_COLOR: #ddd;
+  .tabs {
+    $ACTIVE_COLOR: #ddd;
 
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
-  justify-content: flex-start;
-  padding-left: 8px;
-  border-bottom: 1px solid $BORDER_COLOR;
-  box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: flex-start;
+    padding-left: 8px;
+    border-bottom: 1px solid $ACTIVE_COLOR;
+    box-sizing: border-box;
 
-  .tabBtn {
-    padding: 6px 12px 5px;
-    overflow-y: visible;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-    border: solid 1px $BORDER_COLOR;
-    border-bottom: none;
-    position: relative;
+    // This is interesting experiment
+    // for radio input begin
+    // input[type=radio].tabBtn {
+    //   appearance: none;
+    //   margin: 0;
+    // }
 
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: -1px;
-      left: 0; right: 0;
-      height: 1px;
-      background-color: #fff;
-    }
+    // & > input[type=radio]:checked {
+    //   color: red;
+    // }
+    // for radio input end
 
-    & + .tabBtn {
-      margin-left: 6px;
-    }
-
-    &.on {
-      $BORDER_COLOR: lightblue;
-
-      color: #fff;
-      background-color: $BORDER_COLOR;
-      border-color: $BORDER_COLOR;
+    .tabBtn {
+      padding: 6px 12px 5px;
+      overflow-y: visible;
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
+      border: solid 1px $ACTIVE_COLOR;
+      border-bottom: none;
+      position: relative;
       
       &::after {
-        background-color: $BORDER_COLOR;
+        content: '';
+        position: absolute;
+        bottom: -1px;
+        left: 0; right: 0;
+        height: 1px;
+        background-color: #fff;
+      }
+
+      & + .tabBtn {
+        margin-left: 6px;
+      }
+
+      &.active {
+        $ACTIVE_COLOR: #378410;
+
+        color: #fff;
+        background-color: $ACTIVE_COLOR;
+        border-color: $ACTIVE_COLOR;
+        
+        &::after {
+          background-color: $ACTIVE_COLOR;
+        }
       }
     }
+  }
+
+  .tabPanel {
+    padding: 12px;
   }
 }
