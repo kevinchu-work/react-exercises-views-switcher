@@ -1,6 +1,7 @@
 {
   "name": "views-switcher",
   "version": "0.1.0",
+  "license": "MIT",
   "private": false,
   "dependencies": {
     "@babel/cli": "^7.10.5",
