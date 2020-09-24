@@ -9,45 +9,58 @@ h1 {
   color: green;
 }
 
+
 .tabWrapper {
 
-  .tabs {
-    $ACTIVE_COLOR: #ddd;
+  $TAB_BORDER_COLOR: #ddd;
+  $ACTIVE_TAB_COLOR: #378410;
 
-    display: flex;
-    flex-direction: row;
-    align-items: stretch;
-    justify-content: flex-start;
-    padding-left: 8px;
-    border-bottom: 1px solid $ACTIVE_COLOR;
+  .tabs {
+
+    @include flex(stretch, flex-start);
+    @include padding-x(8px);
+    border-bottom: 1px solid $TAB_BORDER_COLOR;
     box-sizing: border-box;
 
-    // This is interesting experiment
-    // for radio input begin
-    // input[type=radio].tabBtn {
-    //   appearance: none;
-    //   margin: 0;
-    // }
-
-    // & > input[type=radio]:checked {
-    //   color: red;
-    // }
-    // for radio input end
-
-    .tabBtn {
+    %TAB_BUTTON_PLACEHOLDER {
       padding: 6px 12px 5px;
       overflow-y: visible;
       border-top-left-radius: 4px;
       border-top-right-radius: 4px;
-      border: solid 1px $ACTIVE_COLOR;
+      border: solid 1px $TAB_BORDER_COLOR;
       border-bottom: none;
       position: relative;
+    }
+    %TAB_BUTTON_PLACEHOLDER_ACTIVE {
+      color: #fff;
+      background-color: $ACTIVE_TAB_COLOR;
+      border-color: $ACTIVE_TAB_COLOR;
+    }
+
+    // This is interesting experiment
+    // for radio input begin
+    input[type=radio].tabBtn {
+      display: none;
+      appearance: none;
+      margin: 0;
       
+      & + label.tabBtn,
+      & > label.tabBtn 
+      { @extend %TAB_BUTTON_PLACEHOLDER; }
+      &:checked + label.tabBtn,
+      &:checked > label.tabBtn
+      { @extend %TAB_BUTTON_PLACEHOLDER_ACTIVE; }
+    }
+
+
+    // for radio input end
+
+    .tabBtn {
+      @extend %TAB_BUTTON_PLACEHOLDER;
+
       &::after {
         content: '';
-        position: absolute;
-        bottom: -1px;
-        left: 0; right: 0;
+        @include position($bottom: -1px, $left: 0, $right: 0);
         height: 1px;
         background-color: #fff;
       }
@@ -57,14 +70,10 @@ h1 {
       }
 
       &.active {
-        $ACTIVE_COLOR: #378410;
-
-        color: #fff;
-        background-color: $ACTIVE_COLOR;
-        border-color: $ACTIVE_COLOR;
+        @extend %TAB_BUTTON_PLACEHOLDER_ACTIVE;
         
         &::after {
-          background-color: $ACTIVE_COLOR;
+          background-color: $ACTIVE_TAB_COLOR;
         }
       }
     }
